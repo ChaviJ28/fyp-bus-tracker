@@ -1,1 +1,87 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$fyp-bus-tracker-primary: mat.define-palette(mat.$indigo-palette);
+$fyp-bus-tracker-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$fyp-bus-tracker-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$fyp-bus-tracker-theme: mat.define-light-theme((
+  color: (
+    primary: $fyp-bus-tracker-primary,
+    accent: $fyp-bus-tracker-accent,
+    warn: $fyp-bus-tracker-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($fyp-bus-tracker-theme);
+
 /* You can add global styles to this file, and also import other style files */
+@import '~mapbox-gl/dist/mapbox-gl.css';
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Permanent+Marker&family=Signika+Negative:wght@300;500;700&display=swap');
+html, body { height: 100%; }
+
+body {
+    margin: 0;
+    height: 100vh;
+    padding: 0;
+    font-family: 'Signika Negative', sans-serif;
+    color: #ffffff;
+    overflow: hidden;
+}
+
+.mapboxgl-ctrl-logo {
+    display: none !important;
+}
+
+.mapboxgl-ctrl-attrib {
+    display: none !important;
+}
+
+.mapboxgl-ctrl-geolocate {
+    height: 40px !important;
+    width: 40px !important;
+}
+
+.mapboxgl-ctrl-compass {
+    display: none !important;
+}
+
+.mapboxgl-ctrl-zoom-in {
+    height: 40px !important;
+    width: 40px !important;
+}
+
+.mapboxgl-ctrl-zoom-out {
+    height: 40px !important;
+    width: 40px !important;
+}
+
+.mapboxgl-ctrl-bottom-right {
+    margin-bottom: 5rem;
+}
+
+.permanent-marker-text {
+    font-family: 'Permanent Marker', cursive;
+}
+
+.architect-text {
+    font-family: 'Architects Daughter', cursive;
+}

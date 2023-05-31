@@ -1,0 +1,75 @@
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-2">
+
+        </div>
+        <div class="col-8 text-center">
+            <h3>Blockchain Based Bus Tracking System</h3>
+        </div>
+        <div class="col-2">
+          <i class="fas fa-power-off" (click)="logout()"></i>
+        </div>
+    </div>
+
+    <div class="cardm mt-4">
+        <div class="card row">
+            <div class="col-4">
+                <img mat-card-image width=100 src="assets/avatar/{{ userDetails?.gender == 'male' ? 'male.png' : 'female.png'}}" alt="Logo">
+            </div>
+            <div class="col-8 text-center align-middle permanent-marker-text">
+                <h1 class="m-auto">Welcome</h1>
+                <h3 class="m-auto architect-text">{{ userDetails?.gender == "male" ? "Mr" : userDetails?.gender == "female" ? "Mrs" : "" }} {{userDetails?.first_name}}</h3>
+            </div>
+
+        </div>
+    </div>
+    
+
+    <div class="cardm mt-4 ">
+        <div class="card status-block">
+            <div class="network row m-2">
+                <div class="col-4 align-middle architect-text">
+                    <h6>Wifi:</h6>
+                </div>
+                <div class="col-8">
+                    <div class="status-button-block">
+                        <input disabled [checked]="getNetworkStatus()" name="wifi-sts" type="radio"
+                            class="status-button">
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="wallet row ms-2">
+                <div class="col-4 align-middle architect-text">
+                    <h6>Wallet:</h6>
+                </div>
+                <div class="col-8">
+                    <span (click)="copyWalletAddress()" >{{ getWalletAddress().substring(0,15) + "..." }}</span>
+                </div>
+            </div>
+            <div class="wallet row ms-2">
+                <div class="col-4 align-middle architect-text">
+                    <h6>Balance:</h6>
+                </div>
+                <div class="col-8">
+                    <span>{{ tokenBalance }}</span>
+                </div>
+            </div>
+            <div class="wallet row ms-2">
+                <div class="col-4 align-middle architect-text pe-0">
+                    <h6>Gas Balance:</h6>
+                </div>
+                <div class="col-8">
+                    <span>{{ ethBalance }}</span>
+                </div>
+            </div>
+            <!-- <span>{{this.walletAuthService.wallet.address }}</span> -->
+        </div>
+    </div>
+
+    <div class="cardm mt-4 ">
+        <div class="card ">
+            <button (click)="logout()">Logout</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+<div class="sign-up-card card-body p-5 text-center">
+
+    <div class=" mb-md-5 mt-md-4 pb-3">
+
+        <h2 class="fw-bold mb-2 text-uppercase">Sign up</h2>
+        <p class="text-white-50 mb-2">Please enter your details.</p>
+
+        <div class="text-start mb-4">
+            <label class="form-label" for="typeEmailX">First Name:</label>
+            <input type="text" #firstInput class="form-control form-control-lg" />
+        </div>
+
+        <div class="text-start mb-4">
+            <label class="form-label" for="typeEmailX">Last Name:</label>
+            <input type="text" #lastInput class="form-control form-control-lg" />
+        </div>
+
+        <div class="text-start mb-4">
+            <label class="form-label" for="typeEmailX">Phone Number:</label>
+            <input type="number" #phoneInput class="form-control form-control-lg" />
+        </div>
+
+        <div class="text-start mb-4">
+            <label class="form-label" for="typePasswordX">Password:</label>
+            <input type="password" #passwordInput class="form-control form-control-lg" />
+        </div>
+
+        <div class="text-start mb-4">
+            <label class="form-label" for="typePasswordX">Confirm Password:</label>
+            <input type="password" #confPasswordInput class="form-control form-control-lg" />
+        </div>
+
+        <div class="text-start mb-4">
+            <label class="form-label" for="typeEmailX">Date of Birth:</label>
+            <input type="date" #dobInput class="form-control form-control-lg" />
+        </div>
+
+        <div class="text-start mb-4">
+            <label class="form-label" for="typeEmailX">Gender:</label>
+            <select #genderInput class="form-select form-select-lg">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="others">Prefer not to say</option>
+            </select>
+        </div>
+
+        <!-- <p class="small mb-4 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p> -->
+        <span>{{ errorText }}</span>
+        <button class="btn btn-outline-light btn-lg px-5 w-100 mt-4" type="submit" (click)="register(firstInput.value, lastInput.value, phoneInput.value, dobInput.value, genderInput.value, passwordInput.value, confPasswordInput.value)">Sign Up</button>
+
+    </div>
+
+</div>
