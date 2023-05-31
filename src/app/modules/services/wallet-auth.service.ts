@@ -63,6 +63,7 @@ export class WalletAuthService {
   // }
 
   public async initWallet() {
+    console.log("user", localStorage.getItem("user"));
     if (localStorage.getItem("user") == null) {
       this.router.navigate(['/login'])
       return;
@@ -98,5 +99,5 @@ export class WalletAuthService {
   //     value: ethers.utils.parseEther(value.toString())
   //   });
   // }
-  
+
 }
