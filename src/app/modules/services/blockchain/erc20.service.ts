@@ -11,11 +11,13 @@ export class Erc20Service {
   private abi: any = jsonAbi;
   public contract: Contract | any;
 
-  constructor(public walletAuthService: WalletAuthService) {
+  constructor(public walletAuthService: WalletAuthService) {}
+
+  async ngOnInit(){
     this.contract = new ethers.Contract(this.address, this.abi);
     console.log("contract", this.contract)
     // this.contract = this.contract.connect()
-    this.contract = new ethers.Contract(this.address, this.abi, walletAuthService.ethProvider);
+    this.contract = new ethers.Contract(this.address, this.abi, this.walletAuthService.ethProvider);
     console.log("signed contract", this.contract)
   }
 

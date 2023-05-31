@@ -64,11 +64,14 @@ export class WalletAuthService {
 
   public async initWallet() {
     console.log("user", localStorage.getItem("user"));
-    if (localStorage.getItem("user") == null) {
-      this.router.navigate(['/login'])
-      return;
-    } else {
+    if (localStorage.getItem("user") != null) {
+      console.log("has user");
       this.login("test", JSON.parse(localStorage.getItem('user')!).mnemonic);
+      return true;
+    } else {
+      console.log("should go to login");
+      this.router.navigate(['/login']);
+      return false;
     }
   }
 

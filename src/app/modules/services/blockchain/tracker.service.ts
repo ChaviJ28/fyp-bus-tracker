@@ -16,11 +16,13 @@ export class TrackerService {
   public baseProvider = ethers.getDefaultProvider();
   myEvent: EventEmitter<any> = new EventEmitter();
 
-  constructor(public walletAuthService: WalletAuthService) {
+  constructor(public walletAuthService: WalletAuthService) {}
+
+  async ngOnInit() {
     this.contract = new ethers.Contract(this.address, this.abi);
     console.log("contract", this.contract)
     // this.contract = this.contract.connect()
-    this.contract = new ethers.Contract(this.address, this.abi, walletAuthService.ethWallet);
+    this.contract = new ethers.Contract(this.address, this.abi, this.walletAuthService.ethWallet);
     console.log("signed contract", this.contract);
     this.initSubscription();
   }
