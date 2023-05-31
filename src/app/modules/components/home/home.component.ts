@@ -31,22 +31,26 @@ export class HomeComponent implements OnInit {
   async ngOnInit() {
     // this.handleWalletClick();
     this.spinnerService.setLoading(true);
-    await this.walletAuthService.initWallet();
-    await this.initTokenContract();
-    // console.log(await this.ercToken.getBalance())
-    this.getUserDetails();
-    await this.getBalance();
+    const status = await this.walletAuthService.initWallet();
+    if (status == true) {
+      await this.initTokenContract();
+      // console.log(await this.ercToken.getBalance())
+      this.getUserDetails();
+      await this.getBalance();
 
-    const source = interval(30000); // 1 min == 60sec
-    this.subscription = source.subscribe(() => this.getBalance());
-
-
+      const source = interval(30000); // 1 min == 60sec
+      this.subscription = source.subscribe(() => this.getBalance());
+    } else {
+      this.router.navigate(['/login']);
+    }
     this.spinnerService.setLoading(false);
-    
+
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    if(this.subscription != null){
+      this.subscription.unsubscribe();
+    }
   }
 
   getUserDetails() {
