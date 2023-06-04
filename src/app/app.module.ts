@@ -9,6 +9,7 @@ import { BusRoutesComponent } from './modules/components/bus-routes/bus-routes.c
 import { HomeComponent } from './modules/components/home/home.component';
 import { NavbarComponent } from './modules/components/navbar/navbar.component';
 import { SpinnerComponent } from './modules/components/spinner/spinner.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { MatCardModule } from '@angular/material/card';
 import { HttpClientModule } from '@angular/common/http';
@@ -26,12 +27,13 @@ import { LoginComponent } from './modules/components/login/login.component';
     NavbarComponent,
     SpinnerComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatCardModule,
+    MatDialogModule,
     HttpClientModule
   ],
   providers: [],

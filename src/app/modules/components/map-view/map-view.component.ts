@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
+import { MatDialog, MatDialogRef, MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TrackerService } from '../../services/blockchain/tracker.service';
 import { WalletAuthService } from '../../services/wallet-auth.service';
 import { SpinnerService } from '../../services/spinner.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-map-view',
@@ -11,6 +13,8 @@ import { SpinnerService } from '../../services/spinner.service';
 })
 
 export class MapViewComponent implements OnInit {
+  private action: string = "null";
+  private showMap: boolean = false;
   private map: mapboxgl.Map | any;
   private style = 'mapbox://styles/mapbox/streets-v12';
   public tracker!: TrackerService;
@@ -27,7 +31,7 @@ export class MapViewComponent implements OnInit {
       }
     });
 
-  constructor(private spinnerService: SpinnerService, private walletAuthService: WalletAuthService) { }
+  constructor(private spinnerService: SpinnerService, private dialog: MatDialog, private walletAuthService: WalletAuthService) { }
 
   async ngOnInit() {
     this.spinnerService.setLoading(true);
@@ -40,7 +44,31 @@ export class MapViewComponent implements OnInit {
     });
     this.initTracker();
 
+    if (this.showMap) {
+      this.initMap();
 
+    } else {
+      this.spinnerService.setLoading(false);
+      const dialogRef = this.dialog.open(MapSelectionComponent, {
+        hasBackdrop: true,
+        backdropClass: 'static-dialog-backdrop',
+        width: '250px',
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        this.spinnerService.setLoading(true);
+        console.log('The dialog was closed');
+        this.action = result;
+        console.log(result)
+        if (this.action == "witness") {
+          this.showMap = !this.showMap;
+          this.initMap();
+        }
+      });
+    }
+
+  }
+
+  private initMap() {
     // Add map controls
     this.map.addControl(new mapboxgl.NavigationControl(), "bottom-right");
     this.map.addControl(this.geolocateControl, "bottom-right");
@@ -53,9 +81,9 @@ export class MapViewComponent implements OnInit {
 
       navigator.geolocation.watchPosition(async (position) => {
         await this.tracker.track(position.coords.latitude.toString(), position.coords.longitude.toString(), "141");
-
       });
     });
+    this.spinnerService.setLoading(false);
 
   }
 
@@ -174,12 +202,34 @@ export class MapViewComponent implements OnInit {
 
       // Continuously repaint the map, resulting
       // in the smooth animation of the dot.
-      this.map.triggerRepaint();
+      // this.map.triggerRepaint();
 
       // Return `true` to let the map know that the image was updated.
       return true;
     }
   };
 
+}
 
+@Component({
+  selector: 'app-map-selection',
+  templateUrl: './map-selection.component.html',
+  standalone: true,
+  imports: [MatDialogModule],
+})
+export class MapSelectionComponent {
+  constructor(
+    public dialogRef: MatDialogRef<MapSelectionComponent>,
+    @Inject(MAT_DIALOG_DATA) public action: string,
+    private router: Router
+  ) { }
+
+  actionFunc = (action: string) => {
+    this.dialogRef.close();
+    this.router.navigate(['/bus-routes'], {queryParams: {action}});
+  };
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 }

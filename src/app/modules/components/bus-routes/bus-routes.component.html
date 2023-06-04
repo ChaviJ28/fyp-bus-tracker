@@ -10,7 +10,7 @@
         <div class="col-2"></div>
     </div>
 
-    <div class="cardm mt-4">
+    <!-- <div class="cardm mt-4">
         <div class="card row">
             <div class="fw-bold text-dark">Bus 141</div>
             <div class="text-muted">From: Vacoas To Port Louis</div>
@@ -18,130 +18,10 @@
                 <i class="fas fa-angles-right text-dark"></i>
             </div>
         </div>
-    </div>
-
-    <div class="cardm mt-4">
-        <div class="card row">
-            <div class="fw-bold text-dark">Bus 141</div>
-            <div class="text-muted">From: Vacoas To Port Louis</div>
-            <div>
-                <i class="fas fa-angles-right text-dark"></i>
-            </div>
-        </div>
-    </div>
-
-    <div class="cardm mt-4">
-        <div class="card row">
-            <div class="fw-bold text-dark">Bus 141</div>
-            <div class="text-muted">From: Vacoas To Port Louis</div>
-            <div>
-                <i class="fas fa-angles-right text-dark"></i>
-            </div>
-        </div>
-    </div>
-
-    <div class="cardm mt-4">
-        <div class="card row">
-            <div class="fw-bold text-dark">Bus 141</div>
-            <div class="text-muted">From: Vacoas To Port Louis</div>
-            <div>
-                <i class="fas fa-angles-right text-dark"></i>
-            </div>
-        </div>
-    </div>
-
-    <div class="cardm mt-4">
-        <div class="card row">
-            <div class="fw-bold text-dark">Bus 141</div>
-            <div class="text-muted">From: Vacoas To Port Louis</div>
-            <div>
-                <i class="fas fa-angles-right text-dark"></i>
-            </div>
-        </div>
-    </div>
-
-    <div class="cardm mt-4">
-        <div class="card row">
-            <div class="fw-bold text-dark">Bus 141</div>
-            <div class="text-muted">From: Vacoas To Port Louis</div>
-            <div>
-                <i class="fas fa-angles-right text-dark"></i>
-            </div>
-        </div>
-    </div>
-
-    <div class="cardm mt-4">
-        <div class="card row">
-            <div class="fw-bold text-dark">Bus 141</div>
-            <div class="text-muted">From: Vacoas To Port Louis</div>
-            <div>
-                <i class="fas fa-angles-right text-dark"></i>
-            </div>
-        </div>
-    </div>
-
-    <div class="cardm mt-4">
-        <div class="card row">
-            <div class="fw-bold text-dark">Bus 141</div>
-            <div class="text-muted">From: Vacoas To Port Louis</div>
-            <div>
-                <i class="fas fa-angles-right text-dark"></i>
-            </div>
-        </div>
-    </div>
-
-    <div class="cardm mt-4">
-        <div class="card row">
-            <div class="fw-bold text-dark">Bus 141</div>
-            <div class="text-muted">From: Vacoas To Port Louis</div>
-            <div>
-                <i class="fas fa-angles-right text-dark"></i>
-            </div>
-        </div>
-    </div>
-
-    <div class="cardm mt-4">
-        <div class="card row">
-            <div class="fw-bold text-dark">Bus 141</div>
-            <div class="text-muted">From: Vacoas To Port Louis</div>
-            <div>
-                <i class="fas fa-angles-right text-dark"></i>
-            </div>
-        </div>
-    </div>
-
-    <div class="cardm mt-4">
-        <div class="card row">
-            <div class="fw-bold text-dark">Bus 141</div>
-            <div class="text-muted">From: Vacoas To Port Louis</div>
-            <div>
-                <i class="fas fa-angles-right text-dark"></i>
-            </div>
-        </div>
-    </div>
-
-    <div class="cardm mt-4">
-        <div class="card row">
-            <div class="fw-bold text-dark">Bus 141</div>
-            <div class="text-muted">From: Vacoas To Port Louis</div>
-            <div>
-                <i class="fas fa-angles-right text-dark"></i>
-            </div>
-        </div>
-    </div>
-
-    <div class="cardm mt-4">
-        <div class="card row">
-            <div class="fw-bold text-dark">Bus 141</div>
-            <div class="text-muted">From: Vacoas To Port Louis</div>
-            <div>
-                <i class="fas fa-angles-right text-dark"></i>
-            </div>
-        </div>
-    </div>
+    </div> -->
 
     <div class="cardm mt-4" *ngFor="let item of routes; index as i;">
-        <div class="card row">
+        <div class="card row" (click)="handleClick(item.busNo)">
             <div class="fw-bold text-dark">Bus {{ item.busNo }}</div>
             <div class="text-muted">From: {{ item.from }} To {{ item.to }}</div>
             <div>
