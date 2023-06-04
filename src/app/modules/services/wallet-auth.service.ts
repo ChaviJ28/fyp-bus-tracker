@@ -27,13 +27,16 @@ export class WalletAuthService {
       // const keystore = (localStorage.getItem('keystore') as string);
       // console.log("keystore", keystore);
       // this.provider = new ethers.providers.JsonRpcProvider("wss://130.61.30.212:8546");
-      this.provider = new ethers.providers.JsonRpcProvider("http://load.horizonafrica.io:8085/");
+      
+      // this.provider = new ethers.providers.JsonRpcProvider("http://load.horizonafrica.io:8085/");
+      
       // console.log("this.provider", this.provider);
       var wallet = await Wallet.fromMnemonic(mnemonic);
       // console.log("wallet", wallet);
       localStorage.setItem('wallet', JSON.stringify(wallet));
-      wallet = wallet.connect(this.provider);
+      // wallet = wallet.connect(this.provider);
       this.wallet = wallet;
+
       // console.log("this.wallet", this.wallet);
       // console.log("this.getBalance", await this.getBalance());
 

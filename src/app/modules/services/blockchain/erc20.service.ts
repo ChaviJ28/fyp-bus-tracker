@@ -11,7 +11,9 @@ export class Erc20Service {
   private abi: any = jsonAbi;
   public contract: Contract | any;
 
-  constructor(public walletAuthService: WalletAuthService) {}
+  constructor(public walletAuthService: WalletAuthService) {
+    this.ngOnInit();
+  }
 
   async ngOnInit(){
     this.contract = new ethers.Contract(this.address, this.abi);
