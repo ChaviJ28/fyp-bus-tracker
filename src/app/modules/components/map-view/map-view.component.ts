@@ -4,7 +4,8 @@ import { MatDialog, MatDialogRef, MatDialogModule, MAT_DIALOG_DATA } from '@angu
 import { TrackerService } from '../../services/blockchain/tracker.service';
 import { WalletAuthService } from '../../services/wallet-auth.service';
 import { SpinnerService } from '../../services/spinner.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BusRoutesService } from '../../services/api/bus-routes.service';
 
 @Component({
   selector: 'app-map-view',
@@ -14,6 +15,9 @@ import { Router } from '@angular/router';
 
 export class MapViewComponent implements OnInit {
   private action: string = "null";
+  private type: string = "null";
+  private route: string = "null";
+  private coordinates: [] = [];
   private showMap: boolean = false;
   private map: mapboxgl.Map | any;
   private style = 'mapbox://styles/mapbox/streets-v12';
@@ -31,7 +35,7 @@ export class MapViewComponent implements OnInit {
       }
     });
 
-  constructor(private spinnerService: SpinnerService, private dialog: MatDialog, private walletAuthService: WalletAuthService) { }
+  constructor(private spinnerService: SpinnerService, private busApi: BusRoutesService, private dialog: MatDialog, private walletAuthService: WalletAuthService, private AcRoute: ActivatedRoute) { }
 
   async ngOnInit() {
     this.spinnerService.setLoading(true);
@@ -42,7 +46,13 @@ export class MapViewComponent implements OnInit {
       zoom: 9,
       center: [57.5865, -20.2367]
     });
+    this.captureParams();
     this.initTracker();
+
+    if (this.type == "share" || this.type == "view" || this.type == "plot") {
+      this.showMap = true;
+      this.showRoute();
+    }
 
     if (this.showMap) {
       this.initMap();
@@ -55,7 +65,7 @@ export class MapViewComponent implements OnInit {
         width: '250px',
       });
       dialogRef.afterClosed().subscribe(result => {
-        this.spinnerService.setLoading(true);
+        this.spinnerService.setLoading(false);
         console.log('The dialog was closed');
         this.action = result;
         console.log(result)
@@ -66,6 +76,28 @@ export class MapViewComponent implements OnInit {
       });
     }
 
+  }
+
+  private captureParams() {
+    this.AcRoute.queryParams.subscribe(params => {
+      const action = params['action']; // Access the value of the 'action' query parameter
+      const route = params['route']; // Access the value of the 'action' query parameter
+      console.log(action); // Output the value to the console or perform any desired logic
+      this.type = action;
+      this.route = route;
+    });
+  }
+
+  private showRoute() {
+    this.busApi.listCoordinates({
+      search_criteria: {
+        busNo: this.route
+      }
+    }).subscribe(async (resp) => {
+      console.log(resp)
+      this.coordinates = resp.data;
+      this.plotRoute();
+    })
   }
 
   private initMap() {
@@ -209,6 +241,35 @@ export class MapViewComponent implements OnInit {
     }
   };
 
+  private plotRoute() {
+    const data = this.coordinates.map((obj:any) => [obj.y, obj.x])
+    console.log(data);
+    this.map.addSource('route', {
+      'type': 'geojson',
+      'data': {
+        'type': 'Feature',
+        'properties': {},
+        'geometry': {
+          'type': 'LineString',
+          'coordinates': data
+        }
+      }
+    });
+    this.map.addLayer({
+      'id': 'route',
+      'type': 'line',
+      'source': 'route',
+      'layout': {
+        'line-join': 'round',
+        'line-cap': 'round'
+      },
+      'paint': {
+        'line-color': '#888',
+        'line-width': 8
+      }
+    });
+  }
+
 }
 
 @Component({
@@ -226,7 +287,7 @@ export class MapSelectionComponent {
 
   actionFunc = (action: string) => {
     this.dialogRef.close();
-    this.router.navigate(['/bus-routes'], {queryParams: {action}});
+    this.router.navigate(['/bus-routes'], { queryParams: { action } });
   };
 
   onNoClick(): void {

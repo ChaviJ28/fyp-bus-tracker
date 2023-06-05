@@ -10,7 +10,7 @@ import { SpinnerService } from '../../services/spinner.service';
 })
 export class BusRoutesComponent {
   public routes: any[] = []
-  private action: string = "";
+  private action: string = "plot";
 
   constructor(private spinnerService: SpinnerService, private api: BusRoutesService, private router: Router, private AcRoute: ActivatedRoute) { }
 
@@ -18,6 +18,7 @@ export class BusRoutesComponent {
     if(localStorage.getItem("user") == null) {
       this.router.navigate(['/login'])
     }
+    this.action = "plot"
     this.captureParams();
     this.listRoutes();
     this.spinnerService.setLoading(false);
@@ -34,12 +35,21 @@ export class BusRoutesComponent {
   captureParams() {
     this.AcRoute.queryParams.subscribe(params => {
       const action = params['action']; // Access the value of the 'action' query parameter
-      console.log(action); // Output the value to the console or perform any desired logic
-      this.action = action;
+      console.log(typeof action); // Output the value to the console or perform any desired logic
+      if(typeof action == "string"){
+        this.action = action;
+      }
     });
   }
 
   handleClick(bus_no: string) {
+    console.log(this.action)
+    this.router.navigate(['/map'], {
+      queryParams: {
+        route: bus_no,
+        action: this.action
+      }
+    })
     if(this.action == "share"){
       // ask confirmation modal and if yes,
       // show current coord on map along bus line
