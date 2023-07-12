@@ -15,6 +15,7 @@ import { BusRoutesService } from '../../services/api/bus-routes.service';
 
 export class MapViewComponent implements OnInit {
   private action: string = "null";
+  private addresses: string[] = [];
   private type: string = "null";
   private route: string = "null";
   private coordinates: [] = [];
@@ -47,11 +48,19 @@ export class MapViewComponent implements OnInit {
       center: [57.5865, -20.2367]
     });
     this.captureParams();
-    this.initTracker();
 
     if (this.type == "share" || this.type == "view" || this.type == "plot") {
       this.showMap = true;
       this.showRoute();
+
+      if (this.type == "share") {
+        this.startTracking();
+        this.initTracker();
+      }
+
+      if (this.type == "view") {
+        this.initTracker();
+      }
     }
 
     if (this.showMap) {
@@ -111,12 +120,15 @@ export class MapViewComponent implements OnInit {
       console.log(this);
       this.spinnerService.setLoading(false);
 
-      navigator.geolocation.watchPosition(async (position) => {
-        await this.tracker.track(position.coords.latitude.toString(), position.coords.longitude.toString(), "141");
-      });
     });
     this.spinnerService.setLoading(false);
 
+  }
+
+  private startTracking() {
+    navigator.geolocation.watchPosition(async (position) => {
+      await this.tracker.track(position.coords.latitude.toString(), position.coords.longitude.toString(), this.route);
+    });
   }
 
   private async showPosition(position: GeolocationPosition) {
@@ -126,10 +138,16 @@ export class MapViewComponent implements OnInit {
     // await this.home.tracker.track(position.coords.latitude.toString(), position.coords.longitude.toString(), "141");
   }
 
-  private async initMarker(lng: any, lat: any) {
+  private async initMarker(lng: any, lat: any, idAddress: any) {
+    var index: number = this.addresses.indexOf(idAddress);
+    if (index == -1) {
+      index = this.addresses.length;
+      this.addresses.push(idAddress);
+    }
+
     this.map.addImage('pulsing-dot', this.pulsingDot, { pixelRatio: 2 });
 
-    this.map.addSource('dot-point', {
+    this.map.addSource('dot-point-' + index, {
       'type': 'geojson',
       'data': {
         'type': 'FeatureCollection',
@@ -145,9 +163,9 @@ export class MapViewComponent implements OnInit {
       }
     });
     this.map.addLayer({
-      'id': 'layer-with-pulsing-dot',
+      'id': 'layer-with-pulsing-dot-' + index,
       'type': 'symbol',
-      'source': 'dot-point',
+      'source': 'dot-point-' + index,
       'layout': {
         'icon-image': 'pulsing-dot'
       }
@@ -159,6 +177,8 @@ export class MapViewComponent implements OnInit {
 
   private async initTracker() {
     this.tracker = new TrackerService(this.walletAuthService);
+    this.tracker.initSubscription();
+
     console.log(this.tracker);
     // this.tracker.track("asd", "asdasd", "dsa");
     this.tracker.myEvent.subscribe((data) => {
@@ -169,7 +189,7 @@ export class MapViewComponent implements OnInit {
       //   .addTo(this.map);
       // this.map.removeLayer("layer-with-pulsing-dot");
       // this.map.removeSource("dot-point");
-      this.initMarker(data._x, data._y);
+      this.initMarker(data._x, data._y, data.from);
     });
   }
 
@@ -242,7 +262,7 @@ export class MapViewComponent implements OnInit {
   };
 
   private plotRoute() {
-    const data = this.coordinates.map((obj:any) => [obj.y, obj.x])
+    const data = this.coordinates.map((obj: any) => [obj.y, obj.x])
     console.log(data);
     this.map.addSource('route', {
       'type': 'geojson',

@@ -26,10 +26,10 @@ export class TrackerService {
     // this.contract = this.contract.connect()
     this.contract = new ethers.Contract(this.address, this.abi, this.walletAuthService.ethWallet);
     console.log("signed contract", this.contract);
-    this.initSubscription();
   }
 
   public async track(_x: string, _y: string, _busId: string) {
+    
     const data = await this.contract.track(_x, _y, _busId, {
       gasLimit: 50000,
     })
@@ -49,9 +49,9 @@ export class TrackerService {
         });
 
         logs.forEach((log) => {
+          // Code from here would be run immediately when event appeared
           console.log('Event received', log);
           this.decodeLog(log)
-          // Code from here would be run immediately when event appeared
         });
       } catch (error) {
         console.log(error);
