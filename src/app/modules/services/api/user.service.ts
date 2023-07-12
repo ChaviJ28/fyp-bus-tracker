@@ -42,7 +42,7 @@ export class UserService {
 
   update(id: string, obj: {}): Observable<any> {
     // return this.http.post<any>(environment.apiUrl + 'user/create', {
-    return this.http.post<any>(environment.apiUrl + '/api/v1/user/update', {
+    return this.http.post<any>(environment.apiUrl + '/v1/user/update', {
       auth: {
         app_token: "regOGv2y5BEcS42NiygKQtE5uvu6uxKx1Lr31uKtKlJ35NI6qRrGZH633f2c1c8c3a465ab9e63defPuWd5Otkw3OU6qGNVTBSQ",
       },
