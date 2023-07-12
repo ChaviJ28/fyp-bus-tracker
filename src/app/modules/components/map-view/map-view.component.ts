@@ -119,7 +119,7 @@ export class MapViewComponent implements OnInit {
     this.map.on('load', async () => {
       console.log(this);
       this.spinnerService.setLoading(false);
-
+      this.geolocateControl.trigger();
     });
     this.spinnerService.setLoading(false);
 
