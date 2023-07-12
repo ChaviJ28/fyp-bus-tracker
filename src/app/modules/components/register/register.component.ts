@@ -15,11 +15,11 @@ export class RegisterComponent {
   constructor(private api: UserService, private walletService: WalletService, private spinner: SpinnerService, private router: Router) { }
 
   ngOnInit() {
-    if(localStorage.getItem("user") != null) {
+    if (localStorage.getItem("user") != null) {
       this.router.navigate(['/home'])
     }
   }
-  
+
   register(first: string, last: string, phone: string, dob: string, gender: string, password: string, confPassword: string) {
 
     if (confPassword.toLowerCase() === password.toLowerCase()) {
@@ -31,7 +31,6 @@ export class RegisterComponent {
         if (resp.success && resp.success == true && resp.data && resp.data.id) {
 
           // add user_obj in localStorage
-          localStorage.setItem('user', JSON.stringify(resp.data));
 
           // create wallet
           const walletObj = this.walletService.register();
@@ -40,6 +39,7 @@ export class RegisterComponent {
             wallet_address: walletObj.address,
           }).subscribe((resp2) => {
             console.log(resp2);
+            localStorage.setItem('user', JSON.stringify(resp2.data[0]));
             localStorage.setItem('wallet', JSON.stringify(walletObj.wallet));
             this.spinner.setLoading(false);
             this.router.navigate(['/home']);
