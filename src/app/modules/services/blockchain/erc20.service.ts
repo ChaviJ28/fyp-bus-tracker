@@ -29,5 +29,4 @@ export class Erc20Service {
     return (parseInt(balance) / Math.pow(10, decimal)).toString();
   }
 
-
 }

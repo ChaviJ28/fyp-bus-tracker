@@ -7,23 +7,25 @@
             <h3>Blockchain Based Bus Tracking System</h3>
         </div>
         <div class="col-2">
-          <i class="fas fa-power-off" (click)="logout()"></i>
+            <i class="fas fa-right-from-bracket" (click)="logout()"></i>
         </div>
     </div>
 
     <div class="cardm mt-4">
         <div class="card row">
             <div class="col-4">
-                <img mat-card-image width=100 src="assets/avatar/{{ userDetails?.gender == 'male' ? 'male.png' : 'female.png'}}" alt="Logo">
+                <img mat-card-image width=100
+                    src="assets/avatar/{{ userDetails?.gender == 'male' ? 'male.png' : 'female.png'}}" alt="Logo">
             </div>
             <div class="col-8 text-center align-middle permanent-marker-text">
                 <h1 class="m-auto">Welcome</h1>
-                <h3 class="m-auto architect-text">{{ userDetails?.gender == "male" ? "Mr" : userDetails?.gender == "female" ? "Mrs" : "" }} {{userDetails?.first_name}}</h3>
+                <h3 class="m-auto architect-text">{{ userDetails?.gender == "male" ? "Mr" : userDetails?.gender ==
+                    "female" ? "Mrs" : "" }} {{userDetails?.first_name}}</h3>
             </div>
 
         </div>
     </div>
-    
+
 
     <div class="cardm mt-4 ">
         <div class="card status-block">
@@ -44,7 +46,7 @@
                     <h6>Wallet:</h6>
                 </div>
                 <div class="col-8">
-                    <span (click)="copyWalletAddress()" >{{ getWalletAddress().substring(0,15) + "..." }}</span>
+                    <span (click)="copyWalletAddress()">{{ getWalletAddress().substring(0,15) + "..." }}</span>
                 </div>
             </div>
             <div class="wallet row ms-2">
@@ -69,7 +71,48 @@
 
     <div class="cardm mt-4 ">
         <div class="card ">
-            <button (click)="logout()">Logout</button>
+            <span class="card-text">Redeem Stores</span>
         </div>
     </div>
+
+    <div class="cardm mt-4 ">
+        <div class="card ">
+            <span class="card-text">How to Redeem</span>
+        </div>
+    </div>
+
+    <div class="cardm mt-4 ">
+        <div class="card ">
+            <span class="card-text">Help & Support</span>
+        </div>
+    </div>
+
+    <div class="cardm mt-4">
+        <!-- <div class="card "> -->
+            <div id="ads-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="https://mspoweruser.com/wp-content/uploads/2021/08/samsung-fold-ad.jpg" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://media-cdn.tripadvisor.com/media/photo-s/22/01/d3/58/50-off-pizza.jpg" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/pet-adoption-ads-design-template-530029e366ff724f6075e093978ae6ab_screen.jpg" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://i.ytimg.com/vi/J71klzqPnEw/maxresdefault.jpg" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://i.ytimg.com/vi/IiU2_DpLh-U/maxresdefault.jpg" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://www.alioze.com/wp-content/uploads/2020/09/Lacoste-mise-sur-lexcellence.jpg" class="d-block w-100" alt="...">
+                    </div>
+                </div>
+            </div>
+        <!-- </div> -->
+    </div>
+
+
 </div>

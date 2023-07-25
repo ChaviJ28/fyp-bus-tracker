@@ -3,7 +3,7 @@
   justify-content: center;
 }
 
-.fa-power-off {
+.fa-right-from-bracket {
   font-size: 1.2rem;
   margin-top: 1rem;
 }
@@ -12,6 +12,7 @@
   // position: absolute;
   width: 20rem;
   margin: 0 auto;
+  min-height: 2rem;
   max-height: 10rem;
   border-radius: 25px;
   background: whitesmoke;
@@ -20,10 +21,22 @@
   transition: .4s ease-in-out;
 }
 
+.carousel {
+  width: 20rem;
+  margin: 0 auto;
+  min-height: 2rem;
+  max-height: 10rem;
+}
+
 .status-block {
   h6 {
     margin-top: 0.4rem
   }
+}
+
+.card-text {
+  margin: 0 auto;
+  margin-top: 0.2rem
 }
 
 .status-button-block {

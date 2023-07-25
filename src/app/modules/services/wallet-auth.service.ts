@@ -13,7 +13,9 @@ import { interval, Subscription } from 'rxjs';
 export class WalletAuthService {
 
   public ethWallet!: Wallet | any;
+  public haWallet!: Wallet | any;
   public ethProvider!: ethers.providers.BaseProvider;
+  public haProvider!: ethers.providers.BaseProvider;
   public ethSubscription: Subscription | any;
 
   public wallet!: Wallet | any;
@@ -27,9 +29,9 @@ export class WalletAuthService {
       // const keystore = (localStorage.getItem('keystore') as string);
       // console.log("keystore", keystore);
       // this.provider = new ethers.providers.JsonRpcProvider("wss://130.61.30.212:8546");
-      
+
       // this.provider = new ethers.providers.JsonRpcProvider("http://load.horizonafrica.io:8085/");
-      
+
       // console.log("this.provider", this.provider);
       var wallet = await Wallet.fromMnemonic(mnemonic);
       // console.log("wallet", wallet);
@@ -49,6 +51,32 @@ export class WalletAuthService {
       throw new Error(err);
     }
   }
+
+  private async decryptPrivatekey(password: string) {
+    const keystore = await this.wallet.decrypt(password);
+    localStorage.setItem('keystore', keystore);
+  }
+
+  public async login2(password: string, mnemonic: string) {
+    try {
+      var wallet = Wallet.fromMnemonic(mnemonic);
+      this.decryptPrivatekey(password);
+      localStorage.setItem('wallet', JSON.stringify(wallet));
+      this.wallet = wallet;
+
+      // connect to Horizon Africa blockchain
+      this.initHaWallet();
+
+    } catch (err: any) {
+      console.log("err", err);
+      throw new Error(err);
+    }
+  }
+
+  private async initHaWallet() {
+    this.haProvider = new ethers.providers.JsonRpcProvider("http://130.61.30.212:8546/");
+    this.haWallet = this.wallet.connect(this.haProvider);
+   }
 
   private async initEthWallet() {
     // https://ethereum-goerli-rpc.allthatnode.com/

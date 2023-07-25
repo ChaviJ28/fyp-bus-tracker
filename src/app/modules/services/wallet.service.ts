@@ -14,11 +14,8 @@ export class WalletService {
 
   public register() {
     this.wallet = Wallet.createRandom();
-    // console.log("this.wallet2", this.wallet);
     this.mnemonicStr = this.wallet.mnemonic;
-    // console.log("this.mnemonicStr", this.mnemonicStr);
     this.mnemonic = this.mnemonicStr.phrase.split(' ');
-    // console.log("this.mnemonic", this.mnemonic);
     this.createWallet();
     return {
       mnemonic: this.wallet.mnemonic.phrase,
