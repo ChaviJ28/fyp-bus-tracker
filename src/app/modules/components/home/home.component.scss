@@ -24,8 +24,17 @@
 .carousel {
   width: 20rem;
   margin: 0 auto;
-  min-height: 2rem;
   max-height: 10rem;
+  position: relative;
+  z-index: -1;
+
+  .carousel-inner {
+    max-height: 10rem;
+  }
+
+  img {
+    object-fit: contain;
+  }
 }
 
 .status-block {
