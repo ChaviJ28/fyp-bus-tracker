@@ -1,4 +1,113 @@
-<p>profile works!</p>
-<a [routerLink]="['/register']" class="text-white-50 fw-bold">Sign Up</a>
-<br>
-<a [routerLink]="['/login']" class="text-white-50 fw-bold">Login</a>
+<div class="card-body p-5 text-center">
+
+    <div class="mb-md-5 mt-md-4 pb-5">
+
+        <h2 class="fw-bold mb-4 text-uppercase">Profile</h2>
+
+        <div class="user-info">
+
+
+            <div class="text-start mb-4 row">
+                <div class="col-4 align-class">
+                    <label class="" for="typeEmailX">First Name:</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" disabled class="form-control form-control-lg" value="{{userDetails.first_name}}" />
+                </div>
+            </div>
+
+            <div class="text-start mb-4 row">
+                <div class="col-4 align-class">
+                    <label class="" for="typeEmailX">Last Name:</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" disabled class="form-control form-control-lg" value="{{userDetails.last_name}}" />
+                </div>
+            </div>
+
+            <div class="text-start mb-4 row">
+                <div class="col-4 align-class">
+                    <label class="" for="typeEmailX">Gender:</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" disabled class="form-control form-control-lg" value="{{userDetails.gender}}" />
+                </div>
+            </div>
+
+            <div class="text-start mb-4 row">
+                <div class="col-3 align-class">
+                    <label class="" for="typeEmailX">Wallet:</label>
+                </div>
+                <div class="col-9">
+                    <input type="text" disabled class="form-control form-control-lg" value="{{userDetails.wallet_address}}" />
+                </div>
+            </div>
+
+            <div class="text-start mb-4 row">
+                <div class="col-5 align-class">
+                    <label class="" for="typeEmailX">Phone Number:</label>
+                </div>
+                <div class="col-7">
+                    <input type="text" disabled class="form-control form-control-lg" value="{{userDetails.phone_number}}" />
+                </div>
+            </div>
+
+            <div class="text-start mb-4 row">
+                <div class="col-5 align-class">
+                    <label class="" for="typeEmailX">Date of Birth:</label>
+                </div>
+                <div class="col-7">
+                    <input type="text" disabled class="form-control form-control-lg" value="{{userDetails.dob}}" />
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-4 row">
+            <div class="col-6">
+                <div class="card ">
+                    <span class="card-text">Edit Information</span>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="card ">
+                    <span class="card-text">Set Password</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-4 row">
+            <div class="col-6">
+                <div class="card ">
+                    <span class="card-text mb-1">Gas Balance</span>
+                    <span class="card-text">{{ ethBalance.substr(0, 12) }}</span>
+                    <span class="card-text">ICHORs</span>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="card ">
+                    <span class="card-text mb-1">Token Balance</span>
+                    <span class="card-text">{{tokenBalance.substr(0, 12) }}</span>
+                    <span class="card-text">MBs</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <div class="col-6">
+                <div class="card " (click)="openSendModal()">
+                    <span class="card-text">Send</span>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="card " (click)="openRedeemModal()">
+                    <span class="card-text">Redeem</span>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

@@ -104,7 +104,7 @@ export class HomeComponent implements OnInit {
     console.log("token balance: ", this.tokenBalance)
   }
 
-  private async initTokenContract() {
+  public async initTokenContract() {
     this.ercToken = new Erc20Service(this.walletAuthService)
   }
 
