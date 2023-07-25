@@ -9,6 +9,7 @@ import { Subscription, interval } from 'rxjs';
 import { Erc20Service } from '../../services/blockchain/erc20.service';
 import { TrackerService } from '../../services/blockchain/tracker.service';
 // import { Web3authService } from 'src/app/modules/services/web3auth.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-home',
@@ -24,7 +25,7 @@ export class HomeComponent implements OnInit {
   public tokenBalance = "";
 
 
-  constructor(private appComponent: AppComponent, private clipboard: Clipboard, public spinnerService: SpinnerService, public walletAuthService: WalletAuthService, public router: Router, private token: Erc20Service) {
+  constructor(private appComponent: AppComponent, private clipboard: Clipboard, public spinnerService: SpinnerService, public walletAuthService: WalletAuthService, public router: Router, private token: Erc20Service, public dialog: MatDialog) {
     // constructor(private appComponent: AppComponent){
   }
 

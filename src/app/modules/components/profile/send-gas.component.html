@@ -1,0 +1,23 @@
+<div class="modal-dialog container">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5 mt-2">Send ICHORs</h1>
+            <button type="button" class="btn-close" (click)="closeBtn()"></button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="mb-2">
+                    <label class="col-form-label">Recipient Address:</label>
+                    <input type="text" #addressInput class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="col-form-label">Amount:</label>
+                    <input type="number" #amountInput class="form-control">
+                </div>
+            </form>
+        </div>
+        <div class="mb-2">
+            <button type="button" class="btn btn-success send-btn" (click)="sendTx(addressInput.value, amountInput.value)">Send</button>
+        </div>
+    </div>
+</div>
