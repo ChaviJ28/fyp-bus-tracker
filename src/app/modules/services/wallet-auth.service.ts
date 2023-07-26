@@ -134,15 +134,10 @@ export class WalletAuthService {
         // Convert currency unit from ether to wei
         value: ethers.utils.parseEther(amount)
       }
-      console.log("this.ethWallet", this.ethWallet);
-
       this.ethWallet?.sendTransaction(tx)
       .then((txObj: any) => {
         console.log('txObj', txObj)
         return txObj;
-
-        // => 0x9c172314a693b94853b49dc057cf1cb8e529f29ce0272f451eea8f5741aa9b58
-        // A transaction result can be checked in a etherscan with a transaction hash which can be obtained here.
       })
       return "0";
     } catch (err) {

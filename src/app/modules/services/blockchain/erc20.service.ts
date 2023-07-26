@@ -29,4 +29,9 @@ export class Erc20Service {
     return (parseInt(balance) / Math.pow(10, decimal)).toString();
   }
 
+  public async transfer(recipient:string, amount: number){
+    const transferStatus = await this.contract.transfer(recipient, amount)
+    return transferStatus;
+  }
+
 }
