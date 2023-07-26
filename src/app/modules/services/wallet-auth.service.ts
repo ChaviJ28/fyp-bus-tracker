@@ -127,6 +127,30 @@ export class WalletAuthService {
     }
   }
 
+  public async sendTransaction(recipient: string, amount: string) {
+    try {
+      const tx = {
+        to: recipient,
+        // Convert currency unit from ether to wei
+        value: ethers.utils.parseEther(amount)
+      }
+      console.log("this.ethWallet", this.ethWallet);
+
+      this.ethWallet?.sendTransaction(tx)
+      .then((txObj: any) => {
+        console.log('txObj', txObj)
+        return txObj;
+
+        // => 0x9c172314a693b94853b49dc057cf1cb8e529f29ce0272f451eea8f5741aa9b58
+        // A transaction result can be checked in a etherscan with a transaction hash which can be obtained here.
+      })
+      return "0";
+    } catch (err) {
+      console.log("err", err)
+      return "0";
+    }
+  }
+
   // public sendTx({ to, value }: any) {
   //   return this.wallet.sendTransaction({
   //     to,

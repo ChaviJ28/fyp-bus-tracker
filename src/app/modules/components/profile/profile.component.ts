@@ -22,11 +22,13 @@ export class ProfileComponent extends HomeComponent {
   }
 
   openSendModal() {
-    console.log("click")
     const dialogRef = this.dialog.open(SendGasComponent, {
       hasBackdrop: true,
       backdropClass: 'static-dialog-backdrop',
       width: '300px',
+    });
+    dialogRef.afterClosed().subscribe(async (result) => {
+      await this.getBalance();
     });
   }
 
@@ -46,23 +48,13 @@ export class ProfileComponent extends HomeComponent {
 })
 export class SendGasComponent {
   constructor(
-    public dialogRef: MatDialogRef<SendGasComponent>,
+    public dialogRef: MatDialogRef<SendGasComponent>, private walletAuthService: WalletAuthService,
     @Inject(MAT_DIALOG_DATA) private router: Router
   ) { }
 
-  sendTx = (recipient: string, amount: string) => {
-    const tx = {
-      to: recipient,
-      // Convert currency unit from ether to wei
-      value: ethers.utils.parseEther(amount)
-    }
+  sendTx = async (recipient: string, amount: string) => {
 
-    // this.wallet.sendTransaction(tx)
-    //   .then((txObj) => {
-    //     console.log('txHash', txObj.hash)
-    //     // => 0x9c172314a693b94853b49dc057cf1cb8e529f29ce0272f451eea8f5741aa9b58
-    //     // A transaction result can be checked in a etherscan with a transaction hash which can be obtained here.
-    //   })
+    await this.walletAuthService.sendTransaction(recipient, amount);
 
     this.dialogRef.close();
     // this.router.navigate(['/bus-routes'], { queryParams: { action } });
