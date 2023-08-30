@@ -33,7 +33,14 @@ export class ProfileComponent extends HomeComponent {
   }
 
   openRedeemModal() {
-
+    const dialogRef = this.dialog.open(RedeemComponent, {
+      hasBackdrop: true,
+      backdropClass: 'static-dialog-backdrop',
+      width: '300px',
+    });
+    dialogRef.afterClosed().subscribe(async (result) => {
+      await this.getBalance();
+    });
   }
 
 }
@@ -55,6 +62,30 @@ export class SendGasComponent {
   sendTx = async (recipient: string, amount: string) => {
 
     await this.walletAuthService.sendTransaction(recipient, amount);
+
+    this.dialogRef.close();
+    // this.router.navigate(['/bus-routes'], { queryParams: { action } });
+  };
+
+  closeBtn(): void {
+    this.dialogRef.close();
+  }
+}
+
+@Component({
+  selector: 'app-redeem',
+  templateUrl: './redeem-token.component.html',
+  styleUrls: ['./profile.component.scss'],
+  standalone: true,
+  imports: [MatDialogModule],
+})
+export class RedeemComponent {
+  constructor(
+    public dialogRef: MatDialogRef<RedeemComponent>, @Inject(MAT_DIALOG_DATA) private router: Router, 
+  ) { }
+
+  sendTx = async (recipient: string, amount: string) => {
+
 
     this.dialogRef.close();
     // this.router.navigate(['/bus-routes'], { queryParams: { action } });
